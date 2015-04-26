@@ -29,6 +29,7 @@
     "test": "./node_modules/mocha/bin/mocha -R spec ./test/"
   },
   "repository": {
-    "url": ""
+    "type" : "git",
+    "url": "https://github.com/yvesago/parseacl"
   },
   "main" : "./lib/Vlan.js" }

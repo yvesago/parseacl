@@ -1,6 +1,6 @@
 var assert = require('assert');
 
-var Vlan = require('parseacl');
+var Vlan = require('../');
 
 var data = (function () {/*'! exemple 
 interface Vlan12 
