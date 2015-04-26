@@ -14,6 +14,11 @@ Produce a node object from interface and extended acl input.
 
 Currently only for IPv4.
 
+## Install
+
+   npm install parseacl
+
+
 
 ## Usage
 
