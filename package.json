@@ -1,0 +1,34 @@
+{ "name" : "parseacl",
+  "version": "0.0.1",
+  "description": "Parse Cisco ACLs",
+  "license": "GPLv2",
+  "author": {
+       "name": "Yves Agostini",
+       "email": "yves.agostini@univ-lorraine.fr"
+       },
+  "keywords": [
+    "ip",
+    "mask",
+    "acl",
+    "cisco",
+    "network",
+    "subnet"
+  ],
+  "dependencies": {
+    "underscore" : "1.8.x",
+    "netmask": "1.0.x",
+    "shelljs": "0.4.x"
+  },
+  "devDependencies": {
+    "mocha": "2.2.x"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "scripts": {
+    "test": "mocha test/"
+  },
+  "repository": {
+    "url": ""
+  },
+  "main" : "./lib/Vlan.js" }
