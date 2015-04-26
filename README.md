@@ -1,5 +1,10 @@
+
 parseacl - A Cisco ACL parser
 ===================
+
+
+[![Build Status](https://travis-ci.org/yvesago/parseacl.svg?branch=master)](https://travis-ci.org/yvesago/parseacl)
+
 
 ## Description
 
