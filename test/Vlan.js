@@ -22,6 +22,9 @@ deny ip 192.168.1.0 0.0.0.255 192.168.1.0 0.0.0.255 log
 permit tcp any any established
 permit tcp any host 192.168.1.161 eq www
 permit icmp any any 
+! netmask bug: wait for pull request
+! https://github.com/rs/node-netmask/pull/20
+!permit ip host 192.168.100.12 192.168.1.10 0.0.0.1
 deny ip any any log
 ip access-list extended vlan12-in
 deny ip 192.168.1.0 0.0.0.255 any
