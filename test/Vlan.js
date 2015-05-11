@@ -18,6 +18,8 @@ ip access-list extended vlan12-out
 deny ip 192.168.10.0 0.0.0.255 192.168.10.0 0.0.0.255 log 
 deny ip 192.168.20.0 0.0.0.255 192.168.20.0 0.0.0.255 log
 deny ip 192.168.1.0 0.0.0.255 192.168.1.0 0.0.0.255 log  
+! subnet
+deny ip 192.168.10.96 0.0.0.31 192.168.10.0 0.0.0.255 log
 ! Connexions TCP 
 permit tcp any any established
 permit tcp any host 192.168.1.161 eq www
@@ -25,11 +27,17 @@ permit icmp any any
 ! netmask bug: wait for pull request
 ! https://github.com/rs/node-netmask/pull/20
 !permit ip host 192.168.100.12 192.168.1.10 0.0.0.1
+! subnet
+permit tcp host 192.168.168.183 192.168.20.0 0.0.0.31
+! servint not pub
+deny udp any host 192.168.10.183 eq snmp
+! always servpub
 deny udp any host 192.168.1.161 eq snmp
-deny udp any host 192.168.168.183 eq snmp
 deny ip any any log
 ip access-list extended vlan12-in
 deny ip 192.168.1.0 0.0.0.255 any
+! subnet
+deny ip any 192.168.20.96 0.0.0.31
 deny ip any any log 
 !*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
 
@@ -50,6 +58,9 @@ describe("Vlan parse", function() {
      assert.equal(v.intMachines[0].ip(),'192.168.1.161');
      assert.equal(v.intMachines[0].type(),'ServPub');
      assert.equal(v.intMachines[0].line.length,2);
+    });
+    it("int SubNet",function () {
+     assert.equal(v.intSubNet.length,3);
     });
     it("int server deny bug",function () {
      assert.equal(v.intMachines[1].type(),'ServInt');
