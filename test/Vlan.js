@@ -25,6 +25,8 @@ permit icmp any any
 ! netmask bug: wait for pull request
 ! https://github.com/rs/node-netmask/pull/20
 !permit ip host 192.168.100.12 192.168.1.10 0.0.0.1
+deny udp any host 192.168.1.161 eq snmp
+deny udp any host 192.168.168.183 eq snmp
 deny ip any any log
 ip access-list extended vlan12-in
 deny ip 192.168.1.0 0.0.0.255 any
@@ -44,10 +46,13 @@ describe("Vlan parse", function() {
      assert.equal(v.intNetworks.length,3);
     });
     it("int server",function () {
-     assert.equal(v.intMachines.length,1);
+     assert.equal(v.intMachines.length,2);
      assert.equal(v.intMachines[0].ip(),'192.168.1.161');
      assert.equal(v.intMachines[0].type(),'ServPub');
-     assert.equal(v.intMachines[0].line.length,1);
+     assert.equal(v.intMachines[0].line.length,2);
+    });
+    it("int server deny bug",function () {
+     assert.equal(v.intMachines[1].type(),'ServInt');
     });
     it("Post proc give network Type",function () {
      assert.equal(v.intNetworks[2].type(),'ServPub');

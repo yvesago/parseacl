@@ -37,7 +37,11 @@ Currently only for IPv4.
 
 
 
-For the use of an optional config module, watch config-ex.js
+For the use of an optional config module, watch  example/config-ex.js
+
+## See Also
+
+ [viewacl](https://github.com/yvesago/viewacl) - A Meteor JS web viewer
 
 
 ## Licence
