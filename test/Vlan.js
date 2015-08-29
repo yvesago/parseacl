@@ -68,4 +68,7 @@ describe("Vlan parse", function() {
     it("Post proc give network Type",function () {
      assert.equal(v.intNetworks[2].type(),'ServPub');
     });
+    it("Vlan score",function () {
+     assert.equal(v.score,2);
+    });
 });
