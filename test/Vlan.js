@@ -69,6 +69,6 @@ describe("Vlan parse", function() {
      assert.equal(v.intNetworks[2].type(),'ServPub');
     });
     it("Vlan score",function () {
-     assert.equal(v.score,2);
+     assert.equal(v.score,3);
     });
 });
