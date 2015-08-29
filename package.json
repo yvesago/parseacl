@@ -1,6 +1,6 @@
 {
   "name": "parseacl",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Parse Cisco ACLs",
   "license": "GPLv2",
   "author": {
