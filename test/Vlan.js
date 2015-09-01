@@ -12,7 +12,12 @@ interface Vlan12
  ip broadcast-address 192.168.1.255
  ip access-group vlan12-in in
  ip access-group vlan12-out out
-!
+ ipv6 address 2001:DB8:503:10::1/64
+ ipv6 address FE80::503:10 link-local
+ ipv6 enable
+ ipv6 traffic-filter vlan12-v6-in in
+ ipv6 traffic-filter vlan12-v6-out out
+! ==
 ip access-list extended vlan12-out
 ! Spoofing
 deny ip 192.168.10.0 0.0.0.255 192.168.10.0 0.0.0.255 log 
@@ -34,11 +39,29 @@ deny udp any host 192.168.10.183 eq snmp
 ! always servpub
 deny udp any host 192.168.1.161 eq snmp
 deny ip any any log
+! ==
 ip access-list extended vlan12-in
 deny ip 192.168.1.0 0.0.0.255 any
 ! subnet
 deny ip any 192.168.20.96 0.0.0.31
-deny ip any any log 
+deny ip any any log
+! ==
+ipv6 access-list vlan12-v6-out
+deny ipv6 2001:DB8:503:10::/64 2001:DB8:503:10::/64 log
+deny ipv6 2001:DB8:503:11::/64 2001:DB8:503:11::/64 log
+permit tcp any any established
+permit tcp any any eq 22
+permit ipv6 any host 2001:DB8:503:10::BB
+permit tcp any host 2001:DB8:503:10::BB
+permit udp any eq domain any gt 950
+permit udp any eq domain any eq netbios-ns
+!permit tcp any any eq ident
+deny ipv6 any any log
+! ==
+ipv6 access-list vlan12-v6-in
+permit ipv6 2001:DB8:503:10::/64 any
+permit ipv6 2001:DB8:503:11::/64 any
+deny ipv6 any any log
 !*/}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
 
 describe("Vlan parse", function() {
@@ -52,6 +75,9 @@ describe("Vlan parse", function() {
     });
     it("3 int networks",function () {
      assert.equal(v.intNetworks.length,3);
+    });
+    it("4 fullnet IPv4 access",function () {
+     assert.equal(v.fullnet.length,4);
     });
     it("int server",function () {
      assert.equal(v.intMachines.length,2);
