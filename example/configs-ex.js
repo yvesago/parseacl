@@ -1,5 +1,7 @@
 var config = {};
 
+config.dnsTimeout = 10;
+
 config.fullPolicy = [
 {'reg': 'deny ip any  any',
  'com': 'continue',
