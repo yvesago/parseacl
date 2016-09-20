@@ -29,10 +29,8 @@ deny ip 192.168.10.96 0.0.0.31 192.168.10.0 0.0.0.255 log
 permit tcp any any established
 permit tcp any host 192.168.1.161 eq www
 permit icmp any any 
-! netmask bug: wait for pull request
-! https://github.com/rs/node-netmask/pull/20
-!permit ip host 192.168.100.12 192.168.1.10 0.0.0.1
 ! subnet
+permit ip host 192.168.100.12 192.168.1.10 0.0.0.1
 permit tcp host 192.168.168.183 192.168.20.0 0.0.0.31
 ! servint not pub
 deny udp any host 192.168.10.183 eq snmp
@@ -86,7 +84,7 @@ describe("Vlan parse", function() {
      assert.equal(v.intMachines[0].line.length,2);
     });
     it("int SubNet",function () {
-     assert.equal(v.intSubNet.length,3);
+     assert.equal(v.intSubNet.length,4);
     });
     it("int server deny bug",function () {
      assert.equal(v.intMachines[1].type(),'ServInt');
@@ -95,6 +93,6 @@ describe("Vlan parse", function() {
      assert.equal(v.intNetworks[2].type(),'ServPub');
     });
     it("Vlan score",function () {
-     assert.equal(v.score,3);
+     assert.equal(v.score,4);
     });
 });
